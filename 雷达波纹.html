@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      body {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+      }
+      div {
+        outline: 0;
+        border: 0;
+        width: 5rem;
+        height: 5rem;
+        box-shadow: 0 0 5px purple;
+        border-radius: 100%;
+        background: white;
+        cursor: pointer;
+        position: relative;
+        transition: 0.2s;
+      }
+
+      div::before,
+      div::after {
+        content: "";
+        position: absolute;
+        border-radius: 100%;
+        background-color: purple;
+        /* border: 1px solid purple; */
+        width: 3rem;
+        height: 3rem;
+        top: calc(50% - 3rem / 2);
+        left: calc(50% - 3rem / 2);
+        z-index: -1;
+      }
+
+      div:after {
+        animation: anim_radar_after 1s infinite;
+      }
+
+      div:before {
+        animation: anim_radar_before 1s infinite;
+      }
+
+      @keyframes anim_radar_after {
+        100% {
+          transform: scale(4);
+          opacity: 0;
+        }
+      }
+
+      @keyframes anim_radar_before {
+        100% {
+          transform: scale(3);
+          opacity: 0;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div></div>
+  </body>
+</html>

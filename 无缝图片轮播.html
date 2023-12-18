@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+      }
+
+      :root {
+        --iwidth: 960px;
+        --iheight: 540px;
+      }
+
+      body {
+        background-color: #7f8c8d;
+        width: 100vw;
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+
+      #img {
+        width: var(--iwidth);
+        height: var(--iheight);
+        box-shadow: 0 0 15px rgba(0, 0, 0, 0.7);
+        border-radius: 10px;
+        /* overflow设置为hidden后，只会显示一张图片 */
+        overflow: hidden;
+        position: relative;
+      }
+
+      #main div {
+        width: var(--iwidth);
+        height: var(--iheight);
+        border-radius: 10px;
+
+        /* 避免图片压缩，且图片显示完全 */
+        flex-shrink: 0;
+        background-size: cover;
+      }
+
+      #main {
+        display: flex;
+        position: absolute;
+        left: 0;
+        gap: 10px;
+      }
+
+      #img1 {
+        background-image: url(./img/lunbo1.png);
+      }
+
+      #img2 {
+        background-image: url(./img/lunbo2.webp);
+      }
+
+      #img3 {
+        background-image: url(./img/lunbo3.png);
+      }
+
+      #img4 {
+        background-image: url(./img/lunbo4.png);
+      }
+
+      #mask {
+        width: var(--iwidth);
+        height: var(--iheight);
+        /* position: absolute 覆盖在图片上而不是显示在图片后面 */
+        position: absolute;
+        display: flex;
+        justify-content: space-between;
+      }
+
+      #mask div {
+        width: 25%;
+        height: 100%;
+        z-index: 999;
+        user-select: none;
+        position: relative;
+      }
+
+      .btn {
+        display: block;
+        width: 60px;
+        height: 60px;
+        border-radius: 10px;
+        background-color: black;
+        opacity: 0.5;
+        box-shadow: 0 0 10px rgba(255, 255, 255.8);
+        color: rgba(255, 255, 255, 0.8);
+        font-size: 40px;
+        text-align: center;
+        position: absolute;
+        top: 50%;
+        /*水平方向移动：（遮罩宽度-按钮宽度）/2  */
+        transform: translate(90px, -50%);
+        display: none;
+      }
+
+      #l_mask:hover .btn,
+      #r_mask:hover .btn {
+        display: block;
+      }
+
+      .btn:hover {
+        cursor: pointer;
+        background: rgb(56, 17, 17, 0.7);
+      }
+    </style>
+  </head>
+
+  <body>
+    <div id="img">
+      <div id="main">
+        <div id="img1"></div>
+        <div id="img2"></div>
+        <div id="img3"></div>
+        <div id="img4"></div>
+      </div>
+    </div>
+    <div id="mask">
+      <div id="l_mask">
+        <span class="btn"><</span>
+      </div>
+      <div id="r_mask">
+        <span class="btn">></span>
+      </div>
+    </div>
+  </body>
+  <script>
+    const oMain = document.querySelector("#main");
+    const oMask = document.querySelector("#mask");
+    const aImg = document.querySelector("#main div");
+    const aButton = document.querySelector("span");
+    let speed = -5;
+
+    // 为了做循环，赋值一份
+    oMain.innerHTML += oMain.innerHTML;
+
+    const move = () => {
+      if (oMain.offsetLeft < -oMain.offsetWidth / 2) {
+        oMain.style.left = "0";
+      }
+      if (oMain.offsetLeft < -oMain.offsetWidth / 2) {
+        oMain.style.left = -oMain.offsetWidth / 2 + "px";
+      }
+      oMain.style.left = oMain.offsetLeft + speed + "px";
+    };
+    let timer = setInterval(move, 30);
+
+    oMask.addEventListener('mouseover', ()=>{
+      clearInterval(timer)
+    })
+
+    oMask.addEventListener('mouseout', ()=>{
+      timer = setInterval(move, 30);
+    })
+
+    aButton[0].onclick=()=>{
+      speed = -5
+    }
+
+    aButton[1].onclick=()=>{
+      speed = 5
+    }
+  </script>
+</html>

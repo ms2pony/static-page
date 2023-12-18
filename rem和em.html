@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      html{
+        font-size: 10px;
+      }
+      body{
+        font-size: 10px;
+      }
+      div.em {
+        font-size: 8px;
+      }
+      div.rem {
+        font-size: 2em;
+      }
+      div.rem div {
+        font-size: 2rem;
+      }
+      p {
+        font-size: 5em;
+        /* 就近原则，参考的是 p 元素的 font-size，而不是div的 */
+        /* 所以 line-height: 1.8em 等价于 5*1.8*8 */
+        line-height: 1.8em;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="em">
+      <p>
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Incidunt rem
+        suscipit illum, autem necessitatibus doloremque exercitationem
+        cupiditate est dicta, neque quod provident aperiam ipsum culpa
+        praesentium, quia aliquam voluptatum dolor!
+      </p>
+    </div>
+    <!-- 如果使用em，字体随着嵌套越深，越来越大 -->
+    <!-- 用rem则不会，但要注意，rem是和html中的font-size有联系 -->
+    <div class="rem">
+      Lorem ipsum dolor sit amet consectetur adipisicing elit.
+      <div>
+        Lorem ipsum dolor sit amet consectetur adipisicing elit.
+        <div>Lorem ipsum dolor sit amet consectetur adipisicing elit.</div>
+      </div>
+    </div>
+  </body>
+</html>
